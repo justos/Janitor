@@ -1,5 +1,5 @@
 Janitor is a light, fast, flexible class for cleaning up connections, instances, or really anything.
-This implementation covers all uses. You may specify any destruction behavior for any object.
+This implementation covers all uses.
 
 ## Using it (adding an Instance)
 
