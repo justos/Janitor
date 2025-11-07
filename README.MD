@@ -6,7 +6,7 @@
 
 ## Installation
 
-1. Using Wally, just [visit](https://wally.run/package/justos/janitor) and copy the latest release and copy it into your Wally.toml
+1. Using Wally, just [visit](https://wally.run/package/justos/janitor) and copy the latest release and paste it into your Wally.toml
 
 ```toml
 [dependencies]
