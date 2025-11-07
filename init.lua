@@ -409,7 +409,7 @@ Metatable.Cleanup = cleanup
 	@param self Janitor
 	@return {[any]: any}
 ]=]
-function Janitor:GetAll(): { [any]: any }
+function Metatable.GetAll(self: Janitor): { [any]: any }
 	local janitor = janitors[self]
 	return if janitor then table.freeze(table.clone(janitor)) else {}
 end
