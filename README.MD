@@ -2,7 +2,7 @@
 
 ## Why use it?
 
-- It's light, fast, flexible.
+- It's light, fast, and flexible
 - It's easy to use
 - And it helps you manage and clean up memory
 
