@@ -1,5 +1,3 @@
-# Janitor
-
 ## Why use it?
 
 - It's light, fast, and flexible
