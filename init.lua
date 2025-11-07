@@ -154,7 +154,7 @@ end
 	@return Janitor
 ]=]
 function Metatable.Remove(self: Janitor, ...: any): Janitor
-	for _, v in ... do
+	for _, v in { ... } do
 		remove(self, v)
 	end
 
@@ -189,7 +189,7 @@ function Metatable.RemoveNoClean(self: Janitor, ...: any): Janitor
 		return self
 	end
 
-	for _, v in ... do
+	for _, v in { ... } do
 		self[v] = nil
 		janitor[v] = nil
 	end
@@ -582,6 +582,7 @@ end
 ]=]
 function Metatable.Destroy(self: any)
 	cleanup(self)
+	table.clear(self)
 	setmetatable(self, nil)
 end
 
