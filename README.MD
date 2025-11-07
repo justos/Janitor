@@ -11,9 +11,10 @@ local janitor = Janitor.new()
 local part = janitor:Add(Instance.new("Part"), "Destroy")
 part.Parent = workspace
 
-janitor:Cleanup(1) -- Wait one second before cleaning up
+janitor:Cleanup(1) -- Waits one second before cleaning up
 
 -- No more part!
+part = nil
 ```
 
 ## Using it (adding a Connection or Signal)
@@ -48,5 +49,5 @@ local Janitor = require(path.to.Janitor)
 local janitor = Janitor.new()
 
 janitor:Destroy()
-janitor = nil -- Removing the reference
+janitor = nil -- Removes the reference
 ```
