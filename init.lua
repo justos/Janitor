@@ -22,18 +22,6 @@ Metatable.__index = Metatable
 ]=]
 Metatable.CurrentlyCleaning = false
 
-local TYPE_DEFAULTS = {
-	["function"] = true,
-	thread = true,
-	RBXScriptConnection = "Disconnect",
-}
-
---stylua: ignore
-local INVALID_METHOD_NAME = "Object is a %* and as such expected `true?` for the method name and instead got %*. Traceback: %*"
-local METHOD_NOT_FOUND_ERROR = "Object %* doesn't have method %*, are you sure you want to add it? Traceback: %*"
-
-local janitors = setmetatable({}, { __mode = "kv" })
-
 export type Janitor = {
 	CurrentlyCleaning: boolean,
 
@@ -47,13 +35,22 @@ export type Janitor = {
 	) -> T,
 	Connect: (self: Janitor, signal: RBXScriptSignal | any, func: (...any) -> ...any, index: any?) -> (),
 	LinkToInstance: (self: Janitor, instance: Instance, allowMultiple: boolean?) -> RBXScriptConnection,
-	Remove: (self: Janitor, index: any) -> Janitor,
+	Remove: (self: Janitor, ...any) -> Janitor,
+	RemoveNoClean: (self: Janitor, ...any) -> Janitor,
 	Get: (self: Janitor, index: any) -> any?,
+	GetAll: (self: Janitor) -> { [any]: any },
 	Cleanup: (self: Janitor, delaySeconds: number?) -> (),
 	Destroy: (self: Janitor) -> (),
 
 	[any]: boolean | string,
 }
+
+local TYPE_DEFAULTS = { ["function"] = true, thread = true, RBXScriptConnection = "Disconnect" }
+--stylua: ignore
+local INVALID_METHOD_NAME = "Object is a %* and as such expected `true?` for the method name and instead got %*. Traceback: %*"
+local METHOD_NOT_FOUND_ERROR = "Object %* doesn't have method %*, are you sure you want to add it? Traceback: %*"
+
+local janitors = setmetatable({}, { __mode = "kv" })
 
 --[=[
 	Constructs a new Janitor object.
@@ -404,6 +401,20 @@ end
 Metatable.Cleanup = cleanup
 
 --[=[
+	Returns a frozen copy of all of the Janitors objects.
+
+	@method GetAll
+	@within Janitor
+
+	@param self Janitor
+	@return {[any]: any}
+]=]
+function Janitor:GetAll(): { [any]: any }
+	local janitor = janitors[self]
+	return if janitor then table.freeze(table.clone(janitor)) else {}
+end
+
+--[=[
 	Connects a signal and adds it to the Janitor.
 	Shorthand for `janitor:Add(Signal:Connect(func), methodName, index)`
 	
@@ -515,7 +526,7 @@ function Metatable.LinkToInstance(self: Janitor, instance: Instance, allowMultip
 	if not allowMultiple then
 		index = "__LinkToInstance"
 	else
-		index = instance :: any
+		index = newproxy(false)
 	end
 
 	--stylua: ignore
@@ -571,7 +582,6 @@ end
 ]=]
 function Metatable.Destroy(self: any)
 	cleanup(self)
-	table.clear(self)
 	setmetatable(self, nil)
 end
 
