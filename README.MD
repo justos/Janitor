@@ -1,5 +1,21 @@
-Janitor is a light, fast, flexible class for cleaning up connections, instances, or really anything.
-This implementation covers all uses.
+# Janitor
+
+## Why use it?
+
+- It's light, fast, flexible.
+- It's easy to use
+- And it helps you manage and clean up memory
+
+## Installation
+
+1. Using Wally, just [visit](https://wally.run/package/justos/janitor) and copy the latest release and copy it into your Wally.toml
+
+```toml
+[dependencies]
+Janitor = "justos/janitor@0.6.0"
+```
+
+2. Using Github, navigate the releases tab and download the latest version and copy the "init.lua" file into where you want to use it
 
 ## Using it (adding an Instance)
 
