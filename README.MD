@@ -15,7 +15,7 @@
 Janitor = "justos/janitor@0.6.0"
 ```
 
-2. Using Github, navigate the releases tab and download the latest version and copy the "init.lua" file into where you want to use it
+2. Using Github, navigate the [releases](https://github.com/justos/Janitor/releases) tab and download the latest version and copy the "init.lua" file into where you want to use it
 
 ## Using it (adding an Instance)
 
